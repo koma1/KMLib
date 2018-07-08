@@ -63,7 +63,7 @@ begin
       FS.DateSeparator := '-';
       FS.TimeSeparator := ':';
       FS.ShortDateFormat := 'yyyy-mm-dd';
-      FS.LongTimeFormat := 'hh:mm:ss';
+      FS.LongTimeFormat := 'Thh:mm:ss';
       XMLDate[Pos('T', XMLDate)] := ' ';
       try
         DateTime := StrToDateTime(XMLDate, FS);
