@@ -7,37 +7,37 @@ uses
 
 function IsOrdProp(PropInfo: PPropInfo): Boolean;
 function CheckDefaultValue(AInstance: TObject; PropInfo: PPropInfo): Boolean;
-{ TODO : может инфу тут надо брать о BaseType'e? }
-function IsDateTimeProp(const PropInfo: PPropInfo): Boolean;
-function IsDateProp(const PropInfo: PPropInfo): Boolean;
-function IsTimeProp(const PropInfo: PPropInfo): Boolean;
-function IsBooleanProp(PropInfo: PPropInfo): Boolean;
+{ TODO : подтипы определять не по символьному имени }
+function TypeIsDateTime(const ATypeInfo: PTypeInfo): Boolean;
+function TypeIsDate(const ATypeInfo: PTypeInfo): Boolean;
+function TypeIsTime(const ATypeInfo: PTypeInfo): Boolean;
+function TypeIsBoolean(const ATypeInfo: PTypeInfo): Boolean;
 
 implementation
 
-function IsDateTimeProp(const PropInfo: PPropInfo): Boolean; //ToDo
+function TypeIsDateTime(const ATypeInfo: PTypeInfo): Boolean; //ToDo
 begin
-  Result := (PropInfo.PropType^^.Name = 'TDateTime');
+  Result := ATypeInfo^.TypeData^.BaseType = TypeInfo(TDateTime);
 end;
 
-function IsDateProp(const PropInfo: PPropInfo): Boolean; //ToDo
+function TypeIsDate(const ATypeInfo: PTypeInfo): Boolean; //ToDo
 begin
-  Result := (PropInfo.PropType^^.Name = 'TDate')
+  Result := ATypeInfo^.TypeData^.BaseType = TypeInfo(TDate);
 end;
 
-function IsTimeProp(const PropInfo: PPropInfo): Boolean; //ToDo
+function TypeIsTime(const ATypeInfo: PTypeInfo): Boolean; //ToDo
 begin
-  Result := (PropInfo.PropType^^.Name = 'TTime');
+  Result := ATypeInfo^.TypeData^.BaseType = TypeInfo(TTime);
 end;
 
-function IsBooleanProp(PropInfo: PPropInfo): Boolean;
+function TypeIsBoolean(const ATypeInfo: PTypeInfo): Boolean;
 begin
-  Result := PropInfo.PropType^^.TypeData^.BaseType = TypeInfo(Boolean);
+  Result := ATypeInfo^.TypeData^.BaseType = TypeInfo(Boolean);
 end;
 
 function IsOrdProp(PropInfo: PPropInfo): Boolean;
 begin
-  Result := (IsBooleanProp(PropInfo)) or (PropInfo^.PropType^^.Kind in
+  Result := (TypeIsBoolean(PropInfo.PropType^)) or (PropInfo^.PropType^^.Kind in
     [tkChar, tkAnsiChar, tkWChar, tkClass, tkInteger, tkClassRef, tkInt64]);
 end;
 

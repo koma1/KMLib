@@ -2,6 +2,8 @@ unit StringUtils;
 
 interface
 
+function RandomString(MinLen, MaxLen: Integer): string; //генерирует рандомную стоку указанных размеров (лат. алфавит, строчные и прописные)
+function GetRandomString(StrArray: array of string): string; //случайным образом выбирает произвольную строку из массива
 function SimpleInsert(const Source, Dest: string; Index: Integer): string; //выполняет то, что и должен выполнять стандартный Insert в Delphi, с которым без инета я так и не смог разобраться
 //Trim's
 function TrimLeftSubStr(const Source, SubStr: string): string; //убирает подстроку SubStr с левой части строки Source, если она там есть
@@ -11,6 +13,20 @@ function coalesce_str(const Arr: array of string): string;
 function nvl_str(const str1, str2: string): string;
 
 implementation
+
+function RandomString(MinLen, MaxLen: Integer): string;
+var
+  I: Integer;
+begin
+  Result := '';
+  for I := MinLen to Random(MaxLen - MinLen) + MinLen do
+    Result := Result + Chr( Random(Ord('Z') - Ord('a')) + Ord('a') );
+end;
+
+function GetRandomString(StrArray: array of string): string;
+begin
+  Result := StrArray[Random(Length(StrArray) - 1) + 1];
+end;
 
 function SimpleInsert(const Source, Dest: string; Index: Integer): string;
 begin

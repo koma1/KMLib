@@ -1,2 +1,10 @@
+*.res
+Win32/
 __history/
+*.local
+*.identcache
+*.local
+*.skincfg
+*.stat
+*.tvsconfig
 *.dcu
